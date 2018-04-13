@@ -23,12 +23,14 @@ There are 4 different types already set up for you: Success, Error, Warning, Mes
   s.source           = { :git => "https://github.com/KrauseFx/TSMessages.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/KrauseFx'
 
-  s.platform     = :ios, '5.0'
+  s.ios.deployment_target = "10.1"
+  s.tvos.deployment_target = "10.1"
+
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
   s.resources = ['Pod/Assets/*.png', 'Pod/Assets/*.json']
 
   s.public_header_files = 'Pod/Classes/**/*.h'
-  s.dependency 'HexColors', '~> 2.3.0'
+  s.dependency 'HexColors', '~> 6.0.0'
 end
