@@ -257,7 +257,10 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 
             // add background image here
             UIImage *backgroundImage = [self bundledImageNamed:[current valueForKey:@"backgroundImageName"]];
+            
+#if !TARGET_OS_TV
             backgroundImage = [backgroundImage stretchableImageWithLeftCapWidth:0.0 topCapHeight:0.0];
+#endif
 
             _backgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
             self.backgroundImageView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
@@ -268,11 +271,11 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             // On iOS 7 and above use a blur layer instead (not yet finished)
             _backgroundBlurView = [[TSBlurView alloc] init];
             self.backgroundBlurView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
-            self.backgroundBlurView.blurTintColor = [UIColor colorWithHexString:current[@"backgroundColor"]];
+            self.backgroundBlurView.blurTintColor = [UIColor hx_colorWithHexString:current[@"backgroundColor"]];
             [self addSubview:self.backgroundBlurView];
         }
 
-        UIColor *fontColor = [UIColor colorWithHexString:[current valueForKey:@"textColor"]];
+        UIColor *fontColor = [UIColor hx_colorWithHexString:[current valueForKey:@"textColor"]];
 
 
         self.textSpaceLeft = 2 * padding;
@@ -290,7 +293,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         } else {
             [self.titleLabel setFont:[UIFont boldSystemFontOfSize:fontSize]];
         }
-        [self.titleLabel setShadowColor:[UIColor colorWithHexString:[current valueForKey:@"shadowColor"]]];
+        [self.titleLabel setShadowColor:[UIColor hx_colorWithHexString:[current valueForKey:@"shadowColor"]]];
         [self.titleLabel setShadowOffset:CGSizeMake([[current valueForKey:@"shadowOffsetX"] floatValue],
                                                     [[current valueForKey:@"shadowOffsetY"] floatValue])];
 
@@ -304,7 +307,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             _contentLabel = [[UILabel alloc] init];
             [self.contentLabel setText:subtitle];
 
-            UIColor *contentTextColor = [UIColor colorWithHexString:[current valueForKey:@"contentTextColor"]];
+            UIColor *contentTextColor = [UIColor hx_colorWithHexString:[current valueForKey:@"contentTextColor"]];
             if (!contentTextColor)
             {
                 contentTextColor = fontColor;
@@ -355,7 +358,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             [self.button setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
             [self.button setTitle:self.buttonTitle forState:UIControlStateNormal];
 
-            UIColor *buttonTitleShadowColor = [UIColor colorWithHexString:[current valueForKey:@"buttonTitleShadowColor"]];
+            UIColor *buttonTitleShadowColor = [UIColor hx_colorWithHexString:[current valueForKey:@"buttonTitleShadowColor"]];
             if (!buttonTitleShadowColor)
             {
                 buttonTitleShadowColor = self.titleLabel.shadowColor;
@@ -363,7 +366,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 
             [self.button setTitleShadowColor:buttonTitleShadowColor forState:UIControlStateNormal];
 
-            UIColor *buttonTitleTextColor = [UIColor colorWithHexString:[current valueForKey:@"buttonTitleTextColor"]];
+            UIColor *buttonTitleTextColor = [UIColor hx_colorWithHexString:[current valueForKey:@"buttonTitleTextColor"]];
             if (!buttonTitleTextColor)
             {
                 buttonTitleTextColor = fontColor;
@@ -396,7 +399,7 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
                                                                    0.0, // will be set later
                                                                    screenWidth,
                                                                    [[current valueForKey:@"borderHeight"] floatValue])];
-            self.borderView.backgroundColor = [UIColor colorWithHexString:[current valueForKey:@"borderColor"]];
+            self.borderView.backgroundColor = [UIColor hx_colorWithHexString:[current valueForKey:@"borderColor"]];
             self.borderView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
             [self addSubview:self.borderView];
         }

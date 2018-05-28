@@ -11,12 +11,17 @@
 
 @interface TSBlurView ()
 
+#ifndef TARGET_OS_TV
+
 @property (nonatomic, strong) UIToolbar *toolbar;
+
+#endif
 
 @end
 
 @implementation TSBlurView
 
+#ifndef TARGET_OS_TV
 
 - (UIToolbar *)toolbar
 {
@@ -47,5 +52,7 @@
     }
     return nil;
 }
+
+#endif
 
 @end

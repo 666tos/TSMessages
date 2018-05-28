@@ -196,8 +196,10 @@ __weak static UIViewController *_defaultViewController;
             return;
         }
         
+#ifndef TARGET_OS_TV
         CGSize statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
         verticalOffset += MIN(statusBarSize.width, statusBarSize.height);
+#endif
     };
     
     if ([currentView.viewController isKindOfClass:[UINavigationController class]] || [currentView.viewController.parentViewController isKindOfClass:[UINavigationController class]])
@@ -209,7 +211,12 @@ __weak static UIViewController *_defaultViewController;
         else
             currentNavigationController = (UINavigationController *)currentView.viewController.parentViewController;
         
+#ifdef TARGET_OS_TV
+        BOOL isViewIsUnderStatusBar = NO;
+#else
         BOOL isViewIsUnderStatusBar = [[[currentNavigationController childViewControllers] firstObject] wantsFullScreenLayout];
+#endif
+        
         if (!isViewIsUnderStatusBar && currentNavigationController.parentViewController == nil) {
             isViewIsUnderStatusBar = ![TSMessage isNavigationBarInNavigationControllerHidden:currentNavigationController]; // strange but true
         }
@@ -254,10 +261,13 @@ __weak static UIViewController *_defaultViewController;
     else
     {
         CGFloat y = currentView.viewController.view.bounds.size.height - CGRectGetHeight(currentView.frame) / 2.0;
+        
+#if !TARGET_OS_TV
         if (!currentView.viewController.navigationController.isToolbarHidden)
         {
             y -= CGRectGetHeight(currentView.viewController.navigationController.toolbar.bounds);
         }
+#endif
         toPoint = CGPointMake(currentView.center.x, y);
     }
     
