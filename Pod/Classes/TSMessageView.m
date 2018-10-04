@@ -7,9 +7,21 @@
 //
 
 #import "TSMessageView.h"
-#import "HexColors.h"
 #import "TSBlurView.h"
 #import "TSMessage.h"
+
+@interface UIColor(Hex)
+
+@end
+
+@implementation UIColor(Hex)
+
++ (instancetype)hx_colorWithHexString:(NSString *)string {
+    // FIXME:
+    return [UIColor blackColor];
+}
+
+@end
 
 #define TSMessageViewMinimumPadding 15.0
 
